@@ -1,5 +1,4 @@
-
-loadstring(game:HttpGet("https://raw.githubusercontent.com/kickTh/fly/main/flysome.txt"))()
+repeat wait() until game:IsLoaded()
 
 local SOME = Instance.new("ScreenGui")
 local OPENCLOSE = Instance.new("TextButton")
@@ -30,18 +29,29 @@ do
     end
 end
 
+game:GetService("Players").LocalPlayer.Idled:Connect(function()
+    game:GetService("VirtualUser"):CaptureController()
+    game:GetService("VirtualUser"):ClickButton2(Vector2.new())
+end)
+
+
 _G.autofarm = false
-_G.autoSkill = false
+_G.automon = false
 _G.Melee = false
 _G.Sword = false
 _G.Defense = false
 _G.Devil = false
 
-local selectedMob = "Bandit [Lv:5]"
+
+	
+
+local selectedMob = ""
 local selectedTool = "Combat"
-local mob = {"-- Select Mob --"}
-local tool = {"-- Select Tool --"}
+local mob = {""}
+local tool = {""}
 local players = {}
+
+
 
 function check(a,b)
 	for i, v in pairs(b) do
@@ -78,6 +88,11 @@ function equipTool()
 	game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack:FindFirstChild(selectedTool))
 end
 
+function equipTool()
+	game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack:FindFirstChild(selectedTool))
+end
+
+
 function startQuest()
     task.spawn(function()
         if game:GetService("Players").LocalPlayer.PlayerGui.QuestGui.Enabled == false then
@@ -86,6 +101,10 @@ function startQuest()
         end
     end)
 end
+
+
+
+
 
 function autoHaki()
     if not game.Players.LocalPlayer.Character:FindFirstChild("Buso") then
@@ -108,10 +127,15 @@ function useSkill()
     end)
 end
 
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/kickTh/ui/main/Uz6HijUN.txt", true))()
-local w = library:CreateWindow("Script Last Pirates")
 
-w:Section("Farming")
+
+
+
+
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/kickTh/ui/main/Uz6HijUN.txt", true))()
+local w = library:CreateWindow("Some X Hub")
+
+
 
 w:Toggle("Auto Farm", {flag = "a"}, function(a)
 	_G.autofarm = a
@@ -127,10 +151,14 @@ w:Toggle("Auto Farm", {flag = "a"}, function(a)
 					if v.Name == selectedMob and v:FindFirstChild("Humanoid") then
                         plr.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,7.8,0) * CFrame.Angles(math.rad(-90),0,0)
                         equipTool()
+                        v.HumanoidRootPart.Transparency = 5
+                        v.HumanoidRootPart.Size = Vector3.new(70, 70, 70)
+						v.HumanoidRootPart.CanCollide = false
+                        v.HumanoidRootPart.Material = "Neon"
+                        v.Humanoid.DisplayDistanceType = "None"
+						v.Humanoid:ChangeState(11)
+                        v.Humanoid.WalkSpeed = 0
                         click()
-                        if _G.autoSkill then
-                            useSkill()
-                        end
 					end
 				end
 			end)
@@ -138,17 +166,27 @@ w:Toggle("Auto Farm", {flag = "a"}, function(a)
 	end)
 end)
 
+
+
+w:Section("Select Weapon")
 w:Dropdown("Select Mob", { flag = "b", list = mob}, function(a)
 	selectedMob = a
 end)
 
-w:Dropdown("Select Tool", { flag = "b", list = tool}, function(a)
+w:Section("Select Weapon")
+w:Dropdown("Select Auto Tool", { flag = "b", list = tool}, function(a)
     selectedTool = a
 end)
 
+
+
 w:Toggle("Auto Skill", {flag = "v"}, function(a)
-    _G.autoSkill = a
+    useSkill = a
 end)
+
+
+
+
 
 w:Section("Stats")
 
@@ -196,11 +234,25 @@ w:Toggle("Devil Fruit",{flag = b}, function(a)
 	end)
 end)
 
-w:Section("Script By Discord XXXHACKER#1800")
 
-
-local bb = game:GetService("VirtualUser")
-game:GetService("Players").LocalPlayer.Idled:Connect(function()
-    bb:CaptureController()
-    bb:ClickButton2(Vector2.new())
+	
+	w:Button("Bypass Speed TP",function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/kickTh/fly/main/flysome.txt"))()
 end)
+
+	w:Button("GOM MODE",function()
+local player = game.Players.LocalPlayer
+if player.Character then
+if player.Character:FindFirstChild("Humanoid") then
+player.Character.Humanoid.Name = "1"
+end
+local l = player.Character["1"]:Clone()
+l.Parent = player.Character
+l.Name = "Humanoid"; wait(0.1)
+player.Character["1"]:Destroy()
+workspace.CurrentCamera.CameraSubject = player.Character.Humanoid
+player.Character.Animate.Disabled = true; wait(0.1)
+player.Character.Animate.Disabled = false
+end
+end)
+
