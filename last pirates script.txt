@@ -39,8 +39,8 @@ _G.Devil = false
 
 local selectedMob = "Bandit [Lv:5]"
 local selectedTool = "Combat"
-local mob = {"-- Select Mob --"}
-local tool = {"-- Select Tool --"}
+local mob = {""}
+local tool = {""}
 local players = {}
 
 function check(a,b)
@@ -71,14 +71,11 @@ end
 
 function click()
     game:GetService'VirtualUser':CaptureController()
+    game:GetService("VirtualUser"):Button1Down(Vector2.new(69, 69))
     game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
 end
 
 function equipTool()
-local Fire = Instance.new("Fire")
-    Fire.Parent = game.Players.LocalPlayer.Character.RightHand
-    Fire.Heat = 5
-    Fire.Size = 2
 	game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack:FindFirstChild(selectedTool))
 end
 
