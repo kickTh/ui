@@ -167,17 +167,19 @@ w:Toggle("Auto Farm", {flag = "a"}, function(a)
 end)
 
 
-
 w:Section("Select Weapon")
 w:Dropdown("Select Mob", { flag = "b", list = mob}, function(a)
 	selectedMob = a
 end)
 
 
+
 w:Section("Select Weapon")
 w:Dropdown("Select Tool", { flag = "b", list = tool}, function(a)
     selectedTool = a
 end)
+
+
 
 
 
