@@ -173,10 +173,28 @@ w:Dropdown("Select Mob", { flag = "b", list = mob}, function(a)
 	selectedMob = a
 end)
 
+w:Button("Refresh Weapon",function()
+for i, v in pairs(game.Workspace.Lives:GetChildren()) do
+	if v:IsA("Model") and not check(v.Name,players) and not table.find(mob,v.Name) then
+		table.insert(mob,v.Name)
+		table.sort(mob)
+	end
+end
+end
+
 w:Section("Select Weapon")
-w:Dropdown("Select Auto Tool", { flag = "b", list = tool}, function(a)
+w:Dropdown("Select Tool", { flag = "b", list = tool}, function(a)
     selectedTool = a
 end)
+
+
+w:Button("Refresh Weapon",function()
+		for i, v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+	if v:IsA("Tool") then
+		table.insert(tool,v.Name)
+	end
+end
+end
 
 
 
